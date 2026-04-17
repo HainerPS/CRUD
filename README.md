@@ -15,6 +15,12 @@ Projeto simples de gerenciamento de tarefas (CRUD) desenvolvido para prática de
 
 ---
 
+🌐 Deploy
+🔗 Front-end: https://crud-rust-tau.vercel.app/
+🔗 API (Back-end): https://crud-api-0q8i.onrender.com/
+
+---
+
 ## 📌 Funcionalidades
 
 * Criar tarefas
