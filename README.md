@@ -23,6 +23,18 @@ Projeto simples de gerenciamento de tarefas (CRUD) desenvolvido para prática de
 
 ---
 
+## 🖼️ Preview da interface
+
+### Tema escuro
+
+![Tela do app no tema escuro](assets/tela-dark.png)
+
+### Tema claro
+
+![Tela do app no tema claro](assets/tela-light.png)
+
+---
+
 ## ⚙️ Como executar o projeto
 
 ### 1. Clonar o repositório
