@@ -1,3 +1,43 @@
+:root {
+  --bg-main: radial-gradient(circle at top left, #073b48 0%, #041f2d 38%, #021625 100%);
+  --text-primary: #e9f9f4;
+  --text-muted: #9db4bb;
+  --accent: #00e4b0;
+  --accent-soft: rgba(0, 228, 176, 0.2);
+  --surface: linear-gradient(160deg, rgba(4, 62, 73, 0.7), rgba(2, 42, 53, 0.82));
+  --surface-border: rgba(0, 228, 176, 0.12);
+  --input-bg: rgba(11, 53, 62, 0.8);
+  --input-border: rgba(0, 228, 176, 0.15);
+  --task-bg: rgba(7, 45, 58, 0.6);
+  --task-border: rgba(0, 228, 176, 0.1);
+  --tab-bg: rgba(5, 54, 65, 0.75);
+  --tab-text: #88a2a9;
+  --tab-selected-text: #ecfffb;
+  --tab-ring: rgba(73, 153, 255, 0.9);
+  --delete-color: #7d959d;
+  --shadow: 0 30px 60px rgba(0, 6, 16, 0.45);
+}
+
+body.light-mode {
+  --bg-main: radial-gradient(circle at top left, #f2fffb 0%, #def7f2 35%, #cdeee7 100%);
+  --text-primary: #13363d;
+  --text-muted: #4e7178;
+  --accent: #00a57f;
+  --accent-soft: rgba(0, 165, 127, 0.15);
+  --surface: linear-gradient(160deg, rgba(255, 255, 255, 0.83), rgba(241, 255, 251, 0.78));
+  --surface-border: rgba(0, 129, 101, 0.14);
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --input-border: rgba(0, 129, 101, 0.2);
+  --task-bg: rgba(255, 255, 255, 0.8);
+  --task-border: rgba(0, 129, 101, 0.12);
+  --tab-bg: rgba(236, 252, 247, 0.92);
+  --tab-text: #4f6f75;
+  --tab-selected-text: #13363d;
+  --tab-ring: rgba(59, 130, 246, 0.8);
+  --delete-color: #526c72;
+  --shadow: 0 26px 50px rgba(23, 109, 94, 0.15);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -6,78 +46,228 @@ body {
   margin: 0;
   min-height: 100vh;
   padding: 40px 16px;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #f3f4f6;
-  color: #1f2937;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-main);
   display: flex;
   justify-content: center;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-main {
+.app-shell {
   width: 100%;
-  max-width: 560px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 880px;
+}
+
+.app-header {
+  margin: 8px auto 28px;
+  max-width: 760px;
+}
+
+.day-label {
+  margin: 0 0 8px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
 }
 
 h1 {
-  margin: 0 0 20px;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #111827;
+  margin: 0;
+  font-size: clamp(2.2rem, 8vw, 4.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-section[aria-label="Adicionar nova tarefa"] {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+h1 span {
+  color: var(--accent);
 }
 
-#task-input {
-  flex: 1;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 0.95rem;
-  outline: none;
-}
-
-#task-input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-#add-task-btn {
-  border: none;
-  border-radius: 8px;
-  padding: 10px 14px;
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 600;
+.theme-toggle {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid var(--surface-border);
+  background: var(--task-bg);
+  color: var(--text-primary);
+  font-size: 1.1rem;
   cursor: pointer;
 }
 
-#add-task-btn:hover {
-  background: #1d4ed8;
+.remaining-label {
+  margin: 12px 0 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.todo-card {
+  width: 100%;
+  max-width: 880px;
+  border-radius: 24px;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+}
+
+#task-input {
+  width: 100%;
+  border: 1px solid var(--input-border);
+  border-radius: 18px;
+  padding: 16px 18px;
+  font-size: 1.03rem;
+  color: var(--text-primary);
+  background: var(--input-bg);
+  outline: none;
+}
+
+#task-input::placeholder {
+  color: var(--text-muted);
+}
+
+#task-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+#add-task-btn {
+  min-width: 68px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--accent);
+  color: #013027;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.filters {
+  margin-top: 16px;
+  padding: 8px;
+  border-radius: 16px;
+  background: var(--tab-bg);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.filter-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--tab-text);
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.filter-btn.is-active {
+  color: var(--tab-selected-text);
+  background: rgba(0, 228, 176, 0.08);
+  border-color: var(--tab-ring);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 #task-list {
-  margin: 0;
+  margin: 18px 0 0;
   padding: 0;
   list-style: none;
 }
 
-#task-list li {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #f9fafb;
-  padding: 10px 12px;
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid var(--task-border);
+  border-radius: 16px;
+  background: var(--task-bg);
+  padding: 14px 16px;
 }
 
-#task-list li + li {
+.task-item + .task-item {
   margin-top: 10px;
+}
+
+.task-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.task-title {
+  font-size: 1.03rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-checkbox {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  border-radius: 50%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.task-item.is-completed .task-title {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.task-delete {
+  border: none;
+  background: transparent;
+  color: var(--delete-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.items-left {
+  margin: 16px 0 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.empty-state {
+  margin-top: 12px;
+  border: 1px dashed var(--task-border);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+@media (max-width: 680px) {
+  body {
+    padding: 24px 14px;
+  }
+
+  .todo-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .header-row {
+    align-items: flex-start;
+  }
 }

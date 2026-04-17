@@ -7,20 +7,38 @@
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
-  <main>
-    <h1>Lista de Tarefas</h1>
+  <main class="app-shell">
+    <header class="app-header">
+      <p class="day-label">Friday, April 17</p>
+      <div class="header-row">
+        <h1>Today<span>.</span></h1>
+        <button id="theme-toggle-btn" class="theme-toggle" type="button" aria-label="Alternar tema">
+          <span class="theme-icon" aria-hidden="true">☀</span>
+        </button>
+      </div>
+      <p id="tasks-remaining" class="remaining-label">0 task remaining</p>
+    </header>
 
-    <section aria-label="Adicionar nova tarefa">
-      <input
-        id="task-input"
-        type="text"
-        placeholder="Digite uma tarefa"
-      />
-      <button id="add-task-btn" type="button">Adicionar</button>
-    </section>
+    <section class="todo-card" aria-label="Gerenciar tarefas">
+      <div class="input-row">
+        <input
+          id="task-input"
+          type="text"
+          placeholder="What needs to be done?"
+        />
+        <button id="add-task-btn" type="button" aria-label="Adicionar tarefa">+</button>
+      </div>
 
-    <section aria-label="Tarefas cadastradas">
-      <ul id="task-list"></ul>
+      <nav class="filters" aria-label="Filtrar tarefas">
+        <button type="button" class="filter-btn is-active" data-filter="all">All</button>
+        <button type="button" class="filter-btn" data-filter="active">Active</button>
+        <button type="button" class="filter-btn" data-filter="completed">Completed</button>
+      </nav>
+
+      <section aria-label="Tarefas cadastradas">
+        <ul id="task-list"></ul>
+      </section>
+      <p id="items-left" class="items-left">0 item left</p>
     </section>
   </main>
   <script src="./js/script.js"></script>
