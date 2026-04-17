@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:3000/tasks";
+const API_BASE_URL =
+  window.API_BASE_URL || "https://crud-api-0q8i.onrender.com";
+const API_URL = `${API_BASE_URL}/tasks`;
 const taskList = document.getElementById("task-list");
 const taskInput = document.getElementById("task-input");
 const addTaskBtn = document.getElementById("add-task-btn");

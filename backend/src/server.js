@@ -8,6 +8,13 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (_req, res) => {
+  res.json({
+    message: "CRUD API running",
+    endpoints: ["/health", "/tasks"],
+  });
+});
+
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", message: "API running" });
 });
