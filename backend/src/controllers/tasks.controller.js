@@ -1,17 +1,16 @@
-const db = require("../db");
+const store = require("../store");
 
-function listTasks(_req, res) {
-  db.all("SELECT * FROM tasks", [], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: "Failed to list tasks" });
-    }
-
+async function listTasks(_req, res) {
+  try {
+    const rows = await store.listTasks();
     return res.json(rows);
-  });
+  } catch {
+    return res.status(500).json({ error: "Failed to list tasks" });
+  }
 }
 
-function createTask(_req, res) {
-  let { title } = _req.body;
+async function createTask(req, res) {
+  let { title } = req.body;
 
   if (!title || !title.trim()) {
     return res.status(400).json({ error: "title is required" });
@@ -19,32 +18,26 @@ function createTask(_req, res) {
 
   title = title.trim();
 
-  db.run("INSERT INTO tasks (title) VALUES (?)", [title], function (err) {
-    if (err) {
-      return res.status(500).json({ error: "Failed to create task" });
-    }
-
-    return res.status(201).json({
-      id: this.lastID,
-      title,
-    });
-  });
+  try {
+    const created = await store.createTask(title);
+    return res.status(201).json(created);
+  } catch {
+    return res.status(500).json({ error: "Failed to create task" });
+  }
 }
 
-function deleteTask(req, res) {
+async function deleteTask(req, res) {
   const { id } = req.params;
 
-  db.run("DELETE FROM tasks WHERE id = ?", [id], function (err) {
-    if (err) {
-      return res.status(500).json({ error: "Failed to delete task" });
-    }
-
-    if (this.changes === 0) {
+  try {
+    const deleted = await store.deleteTask(id);
+    if (!deleted) {
       return res.status(404).json({ error: "Task not found" });
     }
-
     return res.json({ message: "Task deleted successfully" });
-  });
+  } catch {
+    return res.status(500).json({ error: "Failed to delete task" });
+  }
 }
 
 module.exports = {
